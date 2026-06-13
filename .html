@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DAO Event Ticket System | Decentralized Governance</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <!-- Animated Background -->
+    <div class="animated-bg"></div>
+    
+    <!-- Navigation -->
+    <nav class="glass-nav">
+        <div class="nav-container">
+            <div class="logo">
+                <i class="fas fa-landmark"></i>
+                <span>DAOEvent</span>
+            </div>
+            <div class="nav-links">
+                <a href="#dashboard" class="active">Dashboard</a>
+                <a href="#governance">Governance</a>
+                <a href="#tickets">Tickets</a>
+                <a href="#proposals">Proposals</a>
+                <a href="#analytics">Analytics</a>
+            </div>
+            <div class="wallet-status">
+                <button id="connectWallet" class="btn-primary">
+                    <i class="fas fa-wallet"></i> Connect Wallet
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <main class="container">
+        <!-- Hero Section -->
+        <section class="hero glass-card">
+            <div class="hero-content">
+                <h1 class="gradient-text">Decentralized Event Governance</h1>
+                <p>Where NFT tickets meet DAO governance - Shape the future of events through collective decision making</p>
+                <div class="stats-grid">
+                    <div class="stat-card">
+                        <i class="fas fa-users"></i>
+                        <h3 id="totalMembers">0</h3>
+                        <p>Active Members</p>
+                    </div>
+                    <div class="stat-card">
+                        <i class="fas fa-vote-yea"></i>
+                        <h3 id="totalProposals">0</h3>
+                        <p>Proposals</p>
+                    </div>
+                    <div class="stat-card">
+                        <i class="fas fa-ticket-alt"></i>
+                        <h3 id="totalTickets">0</h3>
+                        <p>Tickets Minted</p>
+                    </div>
+                    <div class="stat-card">
+                        <i class="fas fa-chart-line"></i>
+                        <h3 id="totalValue">$0</h3>
+                        <p>Treasury Value</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Governance Section -->
+        <section id="governance" class="section">
+            <h2 class="section-title"><i class="fas fa-gavel"></i> Governance Dashboard</h2>
+            <div class="governance-grid">
+                <div class="glass-card">
+                    <h3>Your Voting Power</h3>
+                    <div class="voting-power">
+                        <div class="power-value" id="votingPower">0</div>
+                        <div class="power-label">DAO Tokens</div>
+                    </div>
+                    <button class="btn-secondary" onclick="delegateVote()">
+                        <i class="fas fa-hand-paper"></i> Delegate Vote
+                    </button>
+                </div>
+                <div class="glass-card">
+                    <h3>Active Proposals</h3>
+                    <div id="activeProposalsList" class="proposals-list">
+                        <p class="placeholder">No active proposals</p>
+                    </div>
+                </div>
+                <div class="glass-card">
+                    <h3>Quick Actions</h3>
+                    <button class="btn-primary w-full" onclick="createProposal()">
+                        <i class="fas fa-plus-circle"></i> Create Proposal
+                    </button>
+                    <button class="btn-secondary w-full mt-2" onclick="mintTicket()">
+                        <i class="fas fa-ticket-alt"></i> Mint Event Ticket
+                    </button>
+                    <button class="btn-secondary w-full mt-2" onclick="stakeTokens()">
+                        <i class="fas fa-chart-line"></i> Stake Tokens
+                    </button>
+                </div>
+            </div>
+        </section>
+
+        <!-- NFT Tickets Section -->
+        <section id="tickets" class="section">
+            <h2 class="section-title"><i class="fas fa-ticket-alt"></i> Event NFT Tickets</h2>
+            <div class="ticket-grid" id="ticketGrid">
+                <!-- Tickets will be dynamically loaded -->
+            </div>
+        </section>
+
+        <!-- Proposals Section -->
+        <section id="proposals" class="section">
+            <h2 class="section-title"><i class="fas fa-file-alt"></i> Governance Proposals</h2>
+            <div class="proposals-container" id="proposalsContainer">
+                <!-- Proposals will be dynamically loaded -->
+            </div>
+        </section>
+
+        <!-- Analytics Section -->
+        <section id="analytics" class="section">
+            <h2 class="section-title"><i class="fas fa-chart-pie"></i> Analytics</h2>
+            <div class="analytics-grid">
+                <div class="glass-card">
+                    <canvas id="voteChart"></canvas>
+                </div>
+                <div class="glass-card">
+                    <canvas id="ticketChart"></canvas>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Modals -->
+    <div id="proposalModal" class="modal">
+        <div class="modal-content glass-card">
+            <span class="close">&times;</span>
+            <h2>Create New Proposal</h2>
+            <form id="proposalForm">
+                <input type="text" id="proposalTitle" placeholder="Proposal Title" required>
+                <textarea id="proposalDescription" placeholder="Proposal Description" required></textarea>
+                <input type="number" id="proposalAmount" placeholder="Funding Amount (ETH)" step="0.01">
+                <select id="proposalType">
+                    <option value="funding">Funding Request</option>
+                    <option value="parameter">Parameter Change</option>
+                    <option value="event">Event Decision</option>
+                </select>
+                <button type="submit" class="btn-primary w-full">Submit Proposal</button>
+            </form>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/web3@1.8.0/dist/web3.min.js"></script>
+    <script src="app.js"></script>
+</body>
+</html>

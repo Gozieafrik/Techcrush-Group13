@@ -1,0 +1,25 @@
+[profile.default]
+src = "src"
+out = "out"
+libs = ["lib"]
+test = "test"
+script = "script"
+solc_version = "0.8.19"
+optimizer = true
+optimizer_runs = 200
+evm_version = "paris"
+fs_permissions = [{ access = "read-write", path = "./"}]
+gas_reports = ["*"]
+
+[profile.sepolia]
+src = "src"
+out = "out"
+libs = ["lib"]
+test = "test"
+script = "script"
+solc_version = "0.8.19"
+optimizer = true
+optimizer_runs = 200
+evm_version = "paris"
+eth_rpc_url = "https://sepolia.gateway.tenderly.co"
+verify = true

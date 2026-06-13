@@ -1,0 +1,385 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DAO Event Ticket System | Security & Analytics Dashboard</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <!-- Animated Background -->
+    <div class="animated-bg"></div>
+    
+    <!-- Navigation -->
+    <nav class="glass-nav">
+        <div class="nav-container">
+            <div class="logo">
+                <i class="fas fa-landmark"></i>
+                <span>DAOEvent</span>
+            </div>
+            <div class="nav-links">
+                <a href="#dashboard" class="active">Dashboard</a>
+                <a href="#crypto-analysis">Crypto Analysis</a>
+                <a href="#security">Security Hub</a>
+                <a href="#governance">Governance</a>
+                <a href="#tickets">Tickets</a>
+                <a href="#admin">Admin</a>
+            </div>
+            <div class="wallet-status">
+                <div class="security-badge" id="securityBadge">
+                    <i class="fas fa-shield-alt"></i>
+                    <span>Secure</span>
+                </div>
+                <button id="connectWallet" class="btn-primary">
+                    <i class="fas fa-wallet"></i> Connect Wallet
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <main class="container">
+        <!-- Hero Section with Security Score -->
+        <section class="hero glass-card">
+            <div class="hero-content">
+                <h1 class="gradient-text">Decentralized Event Governance</h1>
+                <p>Secure DAO governance with real-time crypto analysis and threat monitoring</p>
+                <div class="security-score-container">
+                    <div class="security-score">
+                        <div class="score-circle">
+                            <svg viewBox="0 0 100 100">
+                                <circle cx="50" cy="50" r="45" class="score-bg"/>
+                                <circle cx="50" cy="50" r="45" class="score-fill" id="securityScoreCircle"/>
+                                <text x="50" y="55" text-anchor="middle" class="score-text" id="securityScore">85</text>
+                            </svg>
+                        </div>
+                        <div class="score-info">
+                            <h3>Overall Security Score</h3>
+                            <p>Your DAO is <span id="securityLevel">High</span> Security</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="stats-grid">
+                    <div class="stat-card">
+                        <i class="fas fa-users"></i>
+                        <h3 id="totalMembers">0</h3>
+                        <p>Active Members</p>
+                    </div>
+                    <div class="stat-card">
+                        <i class="fas fa-vote-yea"></i>
+                        <h3 id="totalProposals">0</h3>
+                        <p>Proposals</p>
+                    </div>
+                    <div class="stat-card">
+                        <i class="fas fa-ticket-alt"></i>
+                        <h3 id="totalTickets">0</h3>
+                        <p>Tickets Minted</p>
+                    </div>
+                    <div class="stat-card">
+                        <i class="fas fa-chart-line"></i>
+                        <h3 id="totalValue">$0</h3>
+                        <p>Treasury Value</p>
+                    </div>
+                    <div class="stat-card">
+                        <i class="fas fa-exclamation-triangle"></i>
+                        <h3 id="threatCount">0</h3>
+                        <p>Active Threats</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Crypto/NFT Daily Analysis Dashboard -->
+        <section id="crypto-analysis" class="section">
+            <h2 class="section-title"><i class="fas fa-chart-line"></i> Daily Crypto & NFT Analysis</h2>
+            
+            <!-- Market Overview -->
+            <div class="analysis-grid">
+                <div class="glass-card">
+                    <div class="card-header">
+                        <h3><i class="fas fa-chart-simple"></i> Market Overview</h3>
+                        <select id="timeframeSelect" class="timeframe-select">
+                            <option value="1D">24 Hours</option>
+                            <option value="7D">7 Days</option>
+                            <option value="30D">30 Days</option>
+                        </select>
+                    </div>
+                    <canvas id="marketTrendChart"></canvas>
+                </div>
+                
+                <div class="glass-card">
+                    <h3><i class="fas fa-coins"></i> Top Cryptocurrencies</h3>
+                    <div id="topCryptos" class="crypto-list">
+                        <!-- Dynamic content -->
+                    </div>
+                </div>
+            </div>
+
+            <!-- NFT Market Analysis -->
+            <div class="analysis-grid mt-4">
+                <div class="glass-card">
+                    <h3><i class="fas fa-palette"></i> NFT Market Analysis</h3>
+                    <canvas id="nftVolumeChart"></canvas>
+                </div>
+                
+                <div class="glass-card">
+                    <h3><i class="fas fa-fire"></i> Trending Collections</h3>
+                    <div id="trendingNFTs" class="nft-list">
+                        <!-- Dynamic content -->
+                    </div>
+                </div>
+            </div>
+
+            <!-- Token Performance -->
+            <div class="glass-card mt-4">
+                <h3><i class="fas fa-chart-bar"></i> Token Performance Metrics</h3>
+                <div class="token-metrics">
+                    <div class="metric-item">
+                        <label>GOV Token Price</label>
+                        <span id="govPrice">$2.45</span>
+                        <span class="positive">+12.5%</span>
+                    </div>
+                    <div class="metric-item">
+                        <label>Market Cap</label>
+                        <span id="marketCap">$24.5M</span>
+                    </div>
+                    <div class="metric-item">
+                        <label>24h Volume</label>
+                        <span id="volume24h">$1.2M</span>
+                    </div>
+                    <div class="metric-item">
+                        <label>Total Staked</label>
+                        <span id="totalStaked">3.4M GOV</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Security Hub - User View -->
+        <section id="security" class="section">
+            <h2 class="section-title"><i class="fas fa-shield-haltered"></i> Security Hub</h2>
+            
+            <!-- User Security Dashboard -->
+            <div class="security-grid">
+                <div class="glass-card">
+                    <h3><i class="fas fa-user-shield"></i> Your Security Status</h3>
+                    <div class="security-metrics">
+                        <div class="security-metric">
+                            <div class="metric-header">
+                                <span>Wallet Security</span>
+                                <span id="walletSecurityScore" class="score">95%</span>
+                            </div>
+                            <div class="progress-bar">
+                                <div class="progress-fill" style="width: 95%"></div>
+                            </div>
+                        </div>
+                        <div class="security-metric">
+                            <div class="metric-header">
+                                <span>Transaction Safety</span>
+                                <span id="txSafetyScore" class="score">88%</span>
+                            </div>
+                            <div class="progress-bar">
+                                <div class="progress-fill" style="width: 88%"></div>
+                            </div>
+                        </div>
+                        <div class="security-metric">
+                            <div class="metric-header">
+                                <span>Voting Security</span>
+                                <span id="votingSecurityScore" class="score">92%</span>
+                            </div>
+                            <div class="progress-bar">
+                                <div class="progress-fill" style="width: 92%"></div>
+                            </div>
+                        </div>
+                    </div>
+                    <button class="btn-secondary mt-3" onclick="runSecurityAudit()">
+                        <i class="fas fa-search"></i> Run Security Audit
+                    </button>
+                </div>
+
+                <div class="glass-card">
+                    <h3><i class="fas fa-history"></i> Recent Activities</h3>
+                    <div id="securityActivities" class="activities-list">
+                        <!-- Dynamic security activities -->
+                    </div>
+                </div>
+
+                <div class="glass-card">
+                    <h3><i class="fas fa-shield-virus"></i> Threat Detection</h3>
+                    <div id="threatDetection" class="threat-list">
+                        <!-- Dynamic threats -->
+                    </div>
+                </div>
+            </div>
+
+            <!-- Risk Assessment -->
+            <div class="glass-card mt-4">
+                <h3><i class="fas fa-clipboard-list"></i> Risk Assessment Report</h3>
+                <div class="risk-assessment">
+                    <div class="risk-category">
+                        <h4>Smart Contract Risks</h4>
+                        <div class="risk-bar">
+                            <div class="risk-fill low" style="width: 20%">Low Risk</div>
+                        </div>
+                    </div>
+                    <div class="risk-category">
+                        <h4>Governance Risks</h4>
+                        <div class="risk-bar">
+                            <div class="risk-fill medium" style="width: 45%">Medium Risk</div>
+                        </div>
+                    </div>
+                    <div class="risk-category">
+                        <h4>Market Risks</h4>
+                        <div class="risk-bar">
+                            <div class="risk-fill high" style="width: 65%">High Risk</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Admin Security Dashboard -->
+        <section id="admin" class="section">
+            <h2 class="section-title"><i class="fas fa-user-tie"></i> Admin Security Dashboard</h2>
+            
+            <!-- Admin Access Control -->
+            <div class="admin-grid">
+                <div class="glass-card">
+                    <h3><i class="fas fa-lock"></i> Access Control</h3>
+                    <div class="access-control">
+                        <div class="role-management">
+                            <h4>Role Assignments</h4>
+                            <div id="roleList" class="role-list">
+                                <!-- Dynamic roles -->
+                            </div>
+                            <button class="btn-secondary mt-2" onclick="manageRoles()">
+                                <i class="fas fa-user-plus"></i> Manage Roles
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="glass-card">
+                    <h3><i class="fas fa-chart-line"></i> System Health</h3>
+                    <div class="system-health">
+                        <div class="health-metric">
+                            <span>Smart Contract Status</span>
+                            <span class="status-green">● Operational</span>
+                        </div>
+                        <div class="health-metric">
+                            <span>Oracle Connectivity</span>
+                            <span class="status-yellow">● Degraded</span>
+                        </div>
+                        <div class="health-metric">
+                            <span>Gas Optimization</span>
+                            <span class="status-green">● Optimal</span>
+                        </div>
+                        <div class="health-metric">
+                            <span>Backup Status</span>
+                            <span class="status-green">● Active</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="glass-card">
+                    <h3><i class="fas fa-bell"></i> Security Alerts</h3>
+                    <div id="securityAlerts" class="alerts-list">
+                        <!-- Dynamic alerts -->
+                    </div>
+                </div>
+            </div>
+
+            <!-- Admin Analytics -->
+            <div class="glass-card mt-4">
+                <h3><i class="fas fa-chart-pie"></i> Advanced Analytics</h3>
+                <div class="admin-analytics">
+                    <canvas id="securityIncidentsChart"></canvas>
+                </div>
+            </div>
+
+            <!-- User Management -->
+            <div class="glass-card mt-4">
+                <h3><i class="fas fa-users-cog"></i> User Security Management</h3>
+                <div class="user-table-container">
+                    <table class="user-table" id="userTable">
+                        <thead>
+                            <tr>
+                                <th>Address</th>
+                                <th>Security Score</th>
+                                <th>Risk Level</th>
+                                <th>2FA Status</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody id="userTableBody">
+                            <!-- Dynamic user data -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- Emergency Controls -->
+            <div class="emergency-controls glass-card mt-4">
+                <h3><i class="fas fa-exclamation-triangle"></i> Emergency Controls</h3>
+                <div class="emergency-buttons">
+                    <button class="btn-danger" onclick="pauseContract()">
+                        <i class="fas fa-pause"></i> Pause Contract
+                    </button>
+                    <button class="btn-warning" onclick="emergencyWithdraw()">
+                        <i class="fas fa-money-bill-wave"></i> Emergency Withdraw
+                    </button>
+                    <button class="btn-danger" onclick="freezeAssets()">
+                        <i class="fas fa-snowflake"></i> Freeze Assets
+                    </button>
+                    <button class="btn-primary" onclick="auditSmartContract()">
+                        <i class="fas fa-code-branch"></i> Audit Contract
+                    </button>
+                </div>
+            </div>
+        </section>
+
+        <!-- Governance Section (Existing) -->
+        <section id="governance" class="section">
+            <!-- Keep existing governance content -->
+        </section>
+
+        <!-- Tickets Section (Existing) -->
+        <section id="tickets" class="section">
+            <!-- Keep existing tickets content -->
+        </section>
+    </main>
+
+    <!-- Modals -->
+    <div id="auditModal" class="modal">
+        <div class="modal-content glass-card">
+            <span class="close">&times;</span>
+            <h2>Security Audit Report</h2>
+            <div id="auditResults">
+                <!-- Audit results will be displayed here -->
+            </div>
+        </div>
+    </div>
+
+    <div id="roleModal" class="modal">
+        <div class="modal-content glass-card">
+            <span class="close">&times;</span>
+            <h2>Manage Roles</h2>
+            <form id="roleForm">
+                <input type="text" id="userAddress" placeholder="User Address" required>
+                <select id="roleSelect">
+                    <option value="admin">Admin</option>
+                    <option value="governance">Governance Manager</option>
+                    <option value="eventManager">Event Manager</option>
+                    <option value="securityAuditor">Security Auditor</option>
+                </select>
+                <button type="submit" class="btn-primary w-full">Assign Role</button>
+            </form>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/web3@1.8.0/dist/web3.min.js"></script>
+    <script src="app.js"></script>
+</body>
+</html>
